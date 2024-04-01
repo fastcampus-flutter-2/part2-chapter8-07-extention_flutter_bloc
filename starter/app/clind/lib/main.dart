@@ -1,0 +1,33 @@
+import 'package:core_util/util.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tool_clind_theme/theme.dart';
+import 'package:ui/ui.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ICoreFirebase.initialize();
+  runApp(const ClindApp());
+}
+
+class ClindApp extends StatelessWidget {
+  const ClindApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClindTheme(
+      themeData: ClindThemeData.dark(),
+      child: MaterialApp(
+        themeMode: ThemeMode.dark,
+        localizationsDelegates: [
+          ...GlobalMaterialLocalizations.delegates,
+        ],
+        supportedLocales: [
+          const Locale('ko'),
+        ],
+        initialRoute: ClindRoute.root.path,
+        onGenerateRoute: (settings) => IClindRoutes.find(settings),
+      ),
+    );
+  }
+}
